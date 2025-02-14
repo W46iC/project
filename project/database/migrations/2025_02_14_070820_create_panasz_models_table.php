@@ -13,9 +13,8 @@ return new class extends Migration
     {
         Schema::create('panasz_models', function (Blueprint $table) {
             $table->id();
-            $table->string("keresztnev");
-            $table->string("vezeteknev");
-            $table->string("megnevezes");
+            $table->string("nev");
+            $table->string("bejelento");
             $table->string("leiras");
             $table->date("datum");
             $table->timestamps();
