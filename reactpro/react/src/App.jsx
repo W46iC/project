@@ -10,33 +10,30 @@ function App() {
       .catch((error) => console.error(error));
   }
 
-const deletePanasz = (id) => {
-  fetch(`http://127.0.0.1:8000/api/panasz/${id}`,{method:"DELETE"})
-  .then((response) => response.json())
-  .then(()=>{
-    setData((values)=>
-      {
-        return values-filter((item) => item.id !== id)}
-      )}
-    )
-}
+  const deletePanasz = (id) => {
+    fetch(`http://127.0.0.1:8000/api/panasz/${id}`, { method: "DELETE" })
+      .then((response) => response.json())
+      .then(() => {
+        setData((values) => {
+          return values.filter((item) => item.id !== id);
+        });
+      });
+  };
 
-  function WriteJson(data){
-    return(
-    <Panasz>
-      {
-        data.map((panasz)=>
-          <Panasz>
-          key={panasz.id}
-          Panasznev={panasz.nev}
-          Panaszleiras={panasz.leiras}
-          Bejelento={panasz.bejelento}
-          Datum={panasz.datum}
-          Panasztorles=(()=> deletePanasz(panasz.id))
-        )
-      }
-    </Panasz>
-    )
+  function WriteJson(data) {
+    return (
+      <>
+        {data.map((panasz) => (
+          <Panasz
+            key={panasz.id}
+            Panasznev={panasz.nev}
+            Panaszleiras={panasz.leiras}
+            Bejelento={panasz.bejelento}
+            Datum={panasz.datum}
+            Panasztorles={() => deletePanasz(panasz.id)}></Panasz>
+        ))}
+      </>
+    );
   }
 
   const [data, setData] = useState(null);
@@ -44,7 +41,7 @@ const deletePanasz = (id) => {
   return (
     <>
       {OsszesPanasz()}
-      {data ? <div>{WriteJson(data)}</div> : <div></div>}
+      {data ? <div>{WriteJson(data)} </div> : <div></div>}
     </>
   );
 }
